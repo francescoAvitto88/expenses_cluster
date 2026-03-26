@@ -49,7 +49,10 @@
                     </div>
 
                     <div class="flex items-center gap-4">
-                        <x-primary-button>{{ __('Salva Spesa') }}</x-primary-button>
+                        <x-primary-button name="action" value="save">{{ __('Salva Spesa') }}</x-primary-button>
+                        <button type="submit" name="action" value="save_and_add" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 disabled:opacity-25 transition ease-in-out duration-150">
+                            {{ __('Salva e aggiungi altra spesa') }}
+                        </button>
                         <a href="{{ route('dashboard') }}" class="text-gray-600 hover:text-gray-900">Annulla</a>
                     </div>
                 </form>

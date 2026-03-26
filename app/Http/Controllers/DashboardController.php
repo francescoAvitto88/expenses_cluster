@@ -28,6 +28,8 @@ class DashboardController extends Controller
             return $expense->category->name;
         })->map(function($group) {
             return $group->sum('amount');
+        })->sortByDesc(function($amount) {
+            return $amount;
         });
 
         $total = $expenses->sum('amount');

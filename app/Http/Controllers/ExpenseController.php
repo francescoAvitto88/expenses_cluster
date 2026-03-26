@@ -14,7 +14,7 @@ class ExpenseController extends Controller
     }
 
     public function create() {
-        $categories = Category::whereNull('created_by')->orWhere('created_by', auth()->id())->get();
+        $categories = Category::whereNull('created_by')->orWhere('created_by', auth()->id())->orderBy('name', 'asc')->get();
         return view('expenses.create', compact('categories'));
     }
 
@@ -22,12 +22,17 @@ class ExpenseController extends Controller
         $validated = $request->validated();
         $validated['user_id'] = auth()->id();
         Expense::create($validated);
+        
+        if ($request->input('action') === 'save_and_add') {
+            return redirect()->route('expenses.create')->with('success', 'Spesa inserita! Puoi aggiungerne un\'altra.');
+        }
+
         return redirect()->route('dashboard')->with('success', 'Spesa inserita!');
     }
 
     public function edit(Expense $expense) {
         Gate::authorize('update', $expense);
-        $categories = Category::whereNull('created_by')->orWhere('created_by', auth()->id())->get();
+        $categories = Category::whereNull('created_by')->orWhere('created_by', auth()->id())->orderBy('name', 'asc')->get();
         return view('expenses.edit', compact('expense', 'categories'));
     }
 
