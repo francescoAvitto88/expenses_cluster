@@ -166,13 +166,23 @@
         document.addEventListener('DOMContentLoaded', function() {
             const chartData = @json($expensesByCategory);
             const categoryMapping = @json($categoryMapping);
+            const categoryColors = @json($categoryColors);
             const labels = Object.keys(chartData);
             const data = Object.values(chartData);
-            
-            const backgroundColors = [
-                '#6366f1', '#ec4899', '#f59e0b', '#10b981', '#3b82f6', '#8b5cf6',
-                '#ef4444', '#14b8a6', '#f97316', '#06b6d4', '#d946ef', '#84cc16'
-            ];
+
+            const activeCategoryId = "{{ $categoryId }}";
+
+            const bgColors = labels.map((label) => {
+                const baseColor = categoryColors[label] || '#6366f1';
+                if (!activeCategoryId) return baseColor;
+                
+                const catId = categoryMapping[label];
+                return catId == activeCategoryId ? baseColor : '#d1d5db';
+            });
+
+            const hoverBgColors = labels.map((label) => {
+                return categoryColors[label] || '#6366f1';
+            });
 
             const pieCtx = document.getElementById('categoryPieChart');
             if (pieCtx) {
@@ -182,7 +192,8 @@
                         labels: labels,
                         datasets: [{
                             data: data,
-                            backgroundColor: backgroundColors,
+                            backgroundColor: bgColors,
+                            hoverBackgroundColor: hoverBgColors,
                             borderWidth: 0,
                             hoverOffset: 4
                         }]
@@ -217,7 +228,8 @@
                         datasets: [{
                             label: 'Totale Speso (€)',
                             data: data,
-                            backgroundColor: '#6366f1',
+                            backgroundColor: bgColors,
+                            hoverBackgroundColor: hoverBgColors,
                             borderRadius: 4
                         }]
                     },

@@ -15,6 +15,7 @@ class UpdateCategoryRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'color' => ['required', 'string', 'size:7', 'regex:/^#[a-fA-F0-9]{6}$/'],
         ];
     }
 }

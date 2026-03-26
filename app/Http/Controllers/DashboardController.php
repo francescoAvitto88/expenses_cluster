@@ -64,7 +64,8 @@ class DashboardController extends Controller
 
         $total = $expenses->sum('amount');
         $categoryMapping = $categories->pluck('id', 'name');
+        $categoryColors = $categories->pluck('color', 'name');
 
-        return view('dashboard', compact('expenses', 'expensesByCategory', 'total', 'month', 'year', 'categories', 'categoryId', 'categoryMapping', 'sortBy', 'sortDir'));
+        return view('dashboard', compact('expenses', 'expensesByCategory', 'total', 'month', 'year', 'categories', 'categoryId', 'categoryMapping', 'categoryColors', 'sortBy', 'sortDir'));
     }
 }

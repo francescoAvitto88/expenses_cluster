@@ -25,6 +25,7 @@
                         <thead class="text-xs text-gray-700 uppercase bg-gray-50">
                             <tr>
                                 <th class="px-6 py-3">ID</th>
+                                <th class="px-6 py-3">Colore</th>
                                 <th class="px-6 py-3">Nome Categoria</th>
                                 <th class="px-6 py-3">Tipo</th>
                                 <th class="px-6 py-3">Azioni</th>
@@ -34,6 +35,11 @@
                             @forelse($categories as $category)
                                 <tr class="bg-white border-b hover:bg-gray-50">
                                     <td class="px-6 py-4">{{ $category->id }}</td>
+                                    <td class="px-6 py-4">
+                                        <div class="flex items-center gap-2">
+                                            <div class="w-6 h-6 rounded-full border border-gray-200" style="background-color: {{ $category->color ?? '#6366f1' }};"></div>
+                                        </div>
+                                    </td>
                                     <td class="px-6 py-4 font-medium text-gray-900">{{ $category->name }}</td>
                                     <td class="px-6 py-4">
                                         @if(is_null($category->created_by))

@@ -18,6 +18,15 @@
                         <x-input-error :messages="$errors->get('name')" class="mt-2" />
                     </div>
 
+                    <div>
+                        <x-input-label for="color" :value="__('Colore')" />
+                        <div class="mt-1 flex items-center gap-3">
+                            <input type="color" id="color" name="color" value="{{ old('color', $category->color ?? '#6366f1') }}" class="h-10 w-14 p-1 rounded border border-gray-300 cursor-pointer" required>
+                            <span class="text-sm text-gray-500">Scegli un colore per la categoria</span>
+                        </div>
+                        <x-input-error :messages="$errors->get('color')" class="mt-2" />
+                    </div>
+
                     <div class="flex items-center gap-4">
                         <x-primary-button>{{ __('Aggiorna Categoria') }}</x-primary-button>
                         <a href="{{ route('categories.index') }}" class="text-gray-600 hover:text-gray-900">Annulla</a>
